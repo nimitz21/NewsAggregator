@@ -20,6 +20,7 @@ namespace NewsAggregator
                 String link = item.Id;
                 DateTime publish_date = item.PublishDate.Date;
                 System.Diagnostics.Debug.WriteLine(title + " " + link);
+                System.Diagnostics.Debug.WriteLine(publish_date.ToString());
             }
         }
     }
