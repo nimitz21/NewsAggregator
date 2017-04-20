@@ -11,7 +11,7 @@ namespace NewsAggregator
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Parser p = new Parser("http://rss.detik.com/index.php/detikcom");
         }
     }
 }
