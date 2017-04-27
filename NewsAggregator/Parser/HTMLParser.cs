@@ -19,7 +19,7 @@ namespace NewsAggregator
             }
             catch (ReadException exception)
             {
-                System.Diagnostics.Debug.WriteLine(ex.StackTrace);
+                System.Diagnostics.Debug.WriteLine(exception.StackTrace);
             }
             return article;
         }
