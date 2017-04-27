@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace NewsAggregator.String_Matcher
+namespace NewsAggregator
 {
     public class String_Matcher
     {
@@ -63,7 +63,7 @@ namespace NewsAggregator.String_Matcher
         }
 
         //getInstnace.
-        public String_Matcher getInstance()
+        public static String_Matcher getInstance()
         {
             return stringMatcherInstance;
         }
