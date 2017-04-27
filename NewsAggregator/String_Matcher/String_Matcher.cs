@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using ReadSharp;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace NewsAggregator.String_Matcher
+namespace NewsAggregator
 {
     public class String_Matcher
     {
         private const int ALPHABET_SIZE = 256;
-        private String_Matcher stringMatcherInstance = new String_Matcher();
+        private static String_Matcher stringMatcherInstance = new String_Matcher();
 
         //PRIVATE METHOD
         //kmpPreproess.
@@ -63,7 +64,7 @@ namespace NewsAggregator.String_Matcher
         }
 
         //getInstnace.
-        public String_Matcher getInstance()
+        public static String_Matcher getInstance()
         {
             return stringMatcherInstance;
         }
@@ -77,7 +78,7 @@ namespace NewsAggregator.String_Matcher
             int matchPosition = 0;
             int searchIndex = 0;
             int[] table = new int[inputPattern.Length];
-            this.kmpPreprocess(inputPattern, ref table);
+            kmpPreprocess(inputPattern, ref table);
             while (matchPosition + searchIndex < inputString.Length)
             {
                 if (inputPattern[searchIndex]
@@ -101,7 +102,7 @@ namespace NewsAggregator.String_Matcher
                     }
                 }
             }
-            return inputPattern.Length;
+            return -1;
         }
 
         //bmSearch.
@@ -144,6 +145,73 @@ namespace NewsAggregator.String_Matcher
             {
                 return -1;
             }
+        }
+
+        public List<KeyValuePair<int, int>> search(string inputString, string algoChoice)
+        {
+            List<KeyValuePair<int, int>> list = new List<KeyValuePair<int, int>>();
+            int i = 0;
+            if (algoChoice == "kmp")
+            {
+                foreach (Article item in Global.listOfItem)
+                {
+                    int index = kmpSearch(item.Content, inputString);
+                    
+                    System.Diagnostics.Debug.WriteLine(index);
+                    if (index != -1)
+                    {
+                        list.Add(new KeyValuePair<int, int>(i, index));
+                    }
+                    i++;
+                }
+            } else if (algoChoice == "boyer")
+            {
+                foreach (Article item in Global.listOfItem)
+                {
+                    int index = bmSearch(item.Content, inputString);
+                    if (index != -1)
+                    {
+                        list.Add(new KeyValuePair<int, int>(i, index));
+                    }
+                    i++;
+                }
+            } else
+            {
+                foreach (Article item in Global.listOfItem)
+                {
+                    int index = regexSearch(item.Content, inputString);
+                    if (index != -1)
+                    {
+                        list.Add(new KeyValuePair<int, int>(i, index));
+                    }
+                    i++;
+                }
+            }
+            return list;
+        }
+
+        public String printListItem(int listIndex, int pos)
+        {
+            String tes = "<html>";
+            Article article = Global.listOfItem.ElementAt(listIndex);
+            tes += article.Title + "<br>";
+            int indexEnd = pos;
+            int indexStart = pos;
+            while (article.Content[indexEnd] != '.')
+            {
+                indexEnd++;
+            }
+            while (article.Content[indexStart] != '.' && indexStart > 0)
+            {
+                indexStart--;
+            }
+            if (indexStart != 0)
+            {
+                indexStart -= 2;
+            }
+            // adding content
+            tes += article.Content.Substring(indexStart, indexEnd - indexStart + 1) + "<hr></html>";
+            return tes;
         }
     }
 }

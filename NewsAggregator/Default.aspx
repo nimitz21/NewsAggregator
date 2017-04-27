@@ -15,9 +15,15 @@
     </form>
     <%
         //Parser a = new Parser("http://rss.detik.com/index.php/detikcom");
-        Response.Write(Test.testing());
+        //Response.Write(Test.testing());
         string search_key = Request.QueryString["searchkey"];
         string algo_choice = Request.QueryString["algochoice"];
+        List<KeyValuePair<int, int>> listIndex = String_Matcher.getInstance().search(search_key, algo_choice);
+        foreach (KeyValuePair<int, int> pair in listIndex)
+        {
+            Response.Write(pair.Key + " " + pair.Value);
+            Response.Write(String_Matcher.getInstance().printListItem(pair.Key, pair.Value));
+        }
         //Response.Write(search_key + " " + algo_choice);
         //Response.Write(a.testing());
     %>
