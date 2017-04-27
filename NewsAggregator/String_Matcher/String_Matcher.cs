@@ -9,7 +9,7 @@ namespace NewsAggregator
 {
     public class String_Matcher
     {
-        private const int ALPHABET_SIZE = 256;
+        private const int ALPHABET_SIZE = 10000;
         private static String_Matcher stringMatcherInstance = new String_Matcher();
 
         //PRIVATE METHOD
@@ -119,7 +119,8 @@ namespace NewsAggregator
             while (shift <= (inputString.Length - inputPattern.Length))
             {
                 int position = inputPattern.Length - 1;
-                while (position > 0 && inputPattern[position] == inputString[position])
+                System.Diagnostics.Debug.WriteLine("position awal :" + position);
+                while (position > 0 && inputPattern[position] == inputString[shift + position])
                 {
                     --position;
                 }
@@ -127,12 +128,14 @@ namespace NewsAggregator
                 {
                     --position;
                 }
+                System.Diagnostics.Debug.WriteLine("position akhir :" + position);
+                System.Diagnostics.Debug.WriteLine("shift :" + shift);
                 if (position < 0)
                 {
                     return shift;
                 } else
                 {
-                    shift += Math.Max(1, position - table[((int) inputString[shift + position] % 256)]); 
+                    shift += Math.Max(1, position - table[((int) inputString[shift + position])]); 
                 }
             }
             return -1;
@@ -147,7 +150,7 @@ namespace NewsAggregator
             Match match = regex.Match(inputString);
             if (match.Success)
             {
-                return match.Groups[1].Index;
+                return match.Groups[0].Captures[0].Index;
             } else
             {
                 return -1;
@@ -163,12 +166,20 @@ namespace NewsAggregator
                 foreach (KeyValuePair<String, Article> pair in Global.listOfItem)
                 {
                     Article item = pair.Value;
-                    int index = kmpSearch(item.Content, inputString);
+                    int index = kmpSearch(filterString(item.Content).ToLower(), inputString.ToLower());
                     
                     System.Diagnostics.Debug.WriteLine(index);
                     if (index != -1)
                     {
                         list.Add(new KeyValuePair<int, int>(i, index));
+                    }
+                    else
+                    {
+                        index = kmpSearch(filterString(item.Title).ToLower(), inputString.ToLower());
+                        if (index != -1)
+                        {
+                            list.Add(new KeyValuePair<int, int>(i, 0));
+                        }
                     }
                     i++;
                 }
@@ -177,10 +188,20 @@ namespace NewsAggregator
                 foreach (KeyValuePair<String, Article> pair in Global.listOfItem)
                 {
                     Article item = pair.Value;
-                    int index = bmSearch(item.Content, inputString);
+                    int index = bmSearch(filterString(item.Content).ToLower(), inputString.ToLower());
+
+                    System.Diagnostics.Debug.WriteLine(index);
                     if (index != -1)
                     {
                         list.Add(new KeyValuePair<int, int>(i, index));
+                    }
+                    else
+                    {
+                        index = bmSearch(filterString(item.Title).ToLower(), inputString.ToLower());
+                        if (index != -1)
+                        {
+                            list.Add(new KeyValuePair<int, int>(i, 0));
+                        }
                     }
                     i++;
                 }
@@ -189,11 +210,19 @@ namespace NewsAggregator
                 foreach (KeyValuePair<String, Article> pair in Global.listOfItem)
                 {
                     Article item = pair.Value;
-                    int index = regexSearch(item.Content, inputString);
+                    int index = regexSearch(filterString(item.Content).ToLower(), inputString.ToLower());
                     System.Diagnostics.Debug.WriteLine(index);
                     if (index != -1)
                     {
                         list.Add(new KeyValuePair<int, int>(i, index));
+                    }
+                    else
+                    {
+                        index = regexSearch(filterString(item.Title).ToLower(), inputString.ToLower());
+                        if (index != -1)
+                        {
+                            list.Add(new KeyValuePair<int, int>(i, 0));
+                        }
                     }
                     i++;
                 }
@@ -209,32 +238,28 @@ namespace NewsAggregator
             tes += "<a href=\"" + pair.Key + "\">" + article.Title + "</a><br>";
             int indexEnd = pos;
             int indexStart = pos;
-            while (article.Content[indexEnd] != '.')
+            String content = filterString(article.Content);
+            while (content[indexEnd] != '.')
             {
                 indexEnd++;
             }
-            while (article.Content[indexStart] != '.' && article.Content[indexStart] != '>' && indexStart > 0)
+            while (content[indexStart] != '.' && indexStart > 0)
             {
                 indexStart--;
             }
-            if (article.Content[indexStart] == '>')
+            if (content[indexStart] == '.')
             {
                 indexStart++;
-                tes += "..";
-            }
-            else if (article.Content[indexStart] == '.')
-            {
-                indexStart += 2;
             }
             // adding content
-            tes += article.Content.Substring(indexStart, indexEnd - indexStart + 1) + "<br>";
+            tes += content.Substring(indexStart, indexEnd - indexStart + 1) + "<br>";
             tes += "<img src=\"" + article.FrontImage + "\" height=100 width=auto>" + "<hr></html>";
             return tes;
         }
 
-        public string filterString(string inputString)
+        public String filterString(String inputString)
         {
-            string filteredString = Regex.Replace(inputString, "<.*?>", String.Empty);
+            String filteredString = Regex.Replace(inputString, "<.*?>", String.Empty);
             return filteredString;
         }
     }

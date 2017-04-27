@@ -23,14 +23,16 @@ namespace NewsAggregator
                 String link = item.Id;
                 DateTime publish_date = item.PublishDate.DateTime;
                 Article article = await HTMLParser.parseHTML(link);
-                System.Diagnostics.Debug.WriteLine(article.Title);
-                System.Diagnostics.Debug.WriteLine(article.Content);
+                //System.Diagnostics.Debug.WriteLine(article.Title);
+                //System.Diagnostics.Debug.WriteLine(article.Content);
                 foreach(ArticleImage image in article.Images)
                 {
-                    System.Diagnostics.Debug.WriteLine(image.Uri);
+                    //System.Diagnostics.Debug.WriteLine(image.Uri);
                 }
                 list.Add(new KeyValuePair<String, Article>(link,article));
+                System.Diagnostics.Debug.WriteLine("Done 1");
             }
+            System.Diagnostics.Debug.WriteLine("Done Parsing");
             return list;
         }
     }
