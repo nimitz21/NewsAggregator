@@ -9,7 +9,7 @@ namespace NewsAggregator
     public class String_Matcher
     {
         private const int ALPHABET_SIZE = 256;
-        private String_Matcher stringMatcherInstance = new String_Matcher();
+        private static String_Matcher stringMatcherInstance = new String_Matcher();
 
         //PRIVATE METHOD
         //kmpPreproess.
