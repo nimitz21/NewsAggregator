@@ -118,8 +118,8 @@ namespace NewsAggregator
             int shift = 0;
             while (shift <= (inputString.Length - inputPattern.Length))
             {
-                int position = inputPattern.Length - 1;
-                while (position >= 0 && inputPattern[position] == inputString[shift + position])
+                int position = inputString.Length - 1;
+                while (position >= 0 && inputPattern[position] == inputString[position])
                 {
                     --position;
                 }
@@ -156,8 +156,9 @@ namespace NewsAggregator
             int i = 0;
             if (algoChoice == "kmp")
             {
-                foreach (Article item in Global.listOfItem)
+                foreach (KeyValuePair<String, Article> pair in Global.listOfItem)
                 {
+                    Article item = pair.Value;
                     int index = kmpSearch(item.Content, inputString);
                     
                     System.Diagnostics.Debug.WriteLine(index);
@@ -169,8 +170,9 @@ namespace NewsAggregator
                 }
             } else if (algoChoice == "boyer")
             {
-                foreach (Article item in Global.listOfItem)
+                foreach (KeyValuePair<String, Article> pair in Global.listOfItem)
                 {
+                    Article item = pair.Value;
                     int index = bmSearch(item.Content, inputString);
                     if (index != -1)
                     {
@@ -180,8 +182,9 @@ namespace NewsAggregator
                 }
             } else
             {
-                foreach (Article item in Global.listOfItem)
+                foreach (KeyValuePair<String, Article> pair in Global.listOfItem)
                 {
+                    Article item = pair.Value;
                     int index = regexSearch(item.Content, inputString);
                     if (index != -1)
                     {
@@ -196,24 +199,31 @@ namespace NewsAggregator
         public String printListItem(int listIndex, int pos)
         {
             String tes = "<html>";
-            Article article = Global.listOfItem.ElementAt(listIndex);
-            tes += article.Title + "<br>";
+            KeyValuePair<String, Article> pair = Global.listOfItem.ElementAt(listIndex);
+            Article article = pair.Value;
+            tes += "<a href=\"" + pair.Key + "\">" + article.Title + "</a><br>";
             int indexEnd = pos;
             int indexStart = pos;
             while (article.Content[indexEnd] != '.')
             {
                 indexEnd++;
             }
-            while (article.Content[indexStart] != '.' && indexStart > 0)
+            while (article.Content[indexStart] != '.' && article.Content[indexStart] != '>' && indexStart > 0)
             {
                 indexStart--;
             }
-            if (indexStart != 0)
+            if (article.Content[indexStart] == '>')
             {
-                indexStart -= 2;
+                indexStart++;
+                tes += "..";
+            }
+            else if (article.Content[indexStart] == '.')
+            {
+                indexStart += 2;
             }
             // adding content
-            tes += article.Content.Substring(indexStart, indexEnd - indexStart + 1) + "<hr></html>";
+            tes += article.Content.Substring(indexStart, indexEnd - indexStart + 1) + "<br>";
+            tes += "<img src=\"" + article.FrontImage + "\" height=100 width=auto>" + "<hr></html>";
             return tes;
         }
 

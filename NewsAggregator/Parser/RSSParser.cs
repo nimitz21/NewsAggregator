@@ -11,12 +11,12 @@ namespace NewsAggregator
 {
     public class RSSParser
     {
-        static async public Task<List<Article>> parseRSS(string url)
+        static async public Task<List<KeyValuePair<String, Article>>> parseRSS(string url)
         {
             XmlReader reader = XmlReader.Create(url);
             SyndicationFeed feed = SyndicationFeed.Load(reader);
             reader.Close();
-            List<Article> list = new List<Article>();
+            List<KeyValuePair<String, Article>> list = new List<KeyValuePair<String, Article>>();
             foreach (SyndicationItem item in feed.Items)
             {
                 String title = item.Title.Text;
@@ -29,7 +29,7 @@ namespace NewsAggregator
                 {
                     System.Diagnostics.Debug.WriteLine(image.Uri);
                 }
-                list.Add(article);
+                list.Add(new KeyValuePair<String, Article>(link,article));
             }
             return list;
         }

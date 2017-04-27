@@ -13,7 +13,7 @@ namespace NewsAggregator
 {
     public class Global : HttpApplication
     {
-        static public List<Article> listOfItem = new List<Article>();
+        static public List<KeyValuePair<String, Article>> listOfItem = new List<KeyValuePair<String, Article>>();
 
         async void Application_Start(object sender, EventArgs e)
         {
@@ -22,10 +22,10 @@ namespace NewsAggregator
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             try
             {
-                List<Article> dummy = await RSSParser.parseRSS("http://rss.detik.com/index.php/detikcom");
-                foreach (Article item in dummy)
+                List<KeyValuePair<String, Article>> dummy = await RSSParser.parseRSS("http://rss.detik.com/index.php/detikcom");
+                foreach (KeyValuePair<String, Article> pair in dummy)
                 {
-                    Global.listOfItem.Add(item);
+                    Global.listOfItem.Add(pair);
                 }
             } catch (Exception ex)
             {
