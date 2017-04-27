@@ -139,11 +139,11 @@ namespace NewsAggregator
         //returns int posisi.
         public int regexSearch(string inputString, string inputPattern)
         {
-            Regex regex = new Regex(@"(\w)(" + inputString + ")", RegexOptions.IgnoreCase);
+            Regex regex = new Regex(inputPattern, RegexOptions.IgnoreCase);
             Match match = regex.Match(inputString);
             if (match.Success)
             {
-                return match.Index;
+                return match.Groups[1].Index;
             } else
             {
                 return -1;
@@ -186,6 +186,7 @@ namespace NewsAggregator
                 {
                     Article item = pair.Value;
                     int index = regexSearch(item.Content, inputString);
+                    System.Diagnostics.Debug.WriteLine(index);
                     if (index != -1)
                     {
                         list.Add(new KeyValuePair<int, int>(i, index));
