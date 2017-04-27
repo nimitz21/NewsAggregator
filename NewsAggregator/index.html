@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> CODAnews </title>
+	<link rel="stylesheet" href="Main Page Style.css">
+	<link rel="icon" href="asset/logo.png">	
+</head>
+<body>
+	<div id = "CODAnews">
+		<img id = "logo" src="asset/logo and coda.png">
+		<br>
+		<form method = "get" action = "Default.aspx">
+			<input type = "radio" name = "algochoice" value = "kmp" checked>Knuth-Morris-Pratt &nbsp &nbsp
+ 			<input type = "radio" name = "algochoice" value = "boyer">Boyer-Moore &nbsp &nbsp
+			<input type = "radio" name = "algochoice" value = "regex">    Regex
+			<br>
+			<input type = "text" id = "inputWords" name = "searchkey" placeholder = "Input keywords here">
+			<button id="submitButton" type="submit" cursor = "pointer">
+				<img id = "imgSearch" src="asset/search button.png">
+			</button>
+		</form>
+		<div id = "credit">
+			<b>Powered by</b>
+			<img id = "gocode" src="asset/GOCode.png">
+		</div>
+	</div>
+	
+</body>
+</html>

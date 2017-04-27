@@ -3,7 +3,9 @@
 <%@ Import Namespace="NewsAggregator" %>
 <!DOCTYPE html/>
 <head>
-    <title> Home Page </title>
+    <title> CODAnews </title>
+    <link rel="stylesheet" href="Search Page Style.css">
+    <link rel="icon" href="asset/logo.png"
 </head>
 <html>
     <body>

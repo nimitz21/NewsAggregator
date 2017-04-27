@@ -1,0 +1,36 @@
+#CODAnews {
+	position: absolute;
+	top: 30%;
+	left: 30%;
+}
+#logo {
+	width: auto;
+	height: auto;
+	max-width: 460px;
+	max-height: 460px;
+}
+#inputWords {
+	width: 400px;
+	height: 25px;
+	padding-left: 5px;
+}
+#submitButton {
+	border: none;
+	background: transparent;
+	cursor: pointer;
+}
+#imgSearch {
+	position: relative;
+	max-width: 25px;
+	max-height: auto;
+	margin-left: 0px;
+}
+#credit {
+	position: absolute;
+	top: 400px;
+	left: 35%;
+}
+#gocode {
+	max-width: auto;
+	max-height: 20px;
+}
