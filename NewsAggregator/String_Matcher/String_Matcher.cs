@@ -21,7 +21,10 @@ namespace NewsAggregator
             int position = 2;
             int candidatePosition = 0;
             table[0] = -1;
-            table[1] = 0;
+            if (table.Length > 1)
+            {
+                table[1] = 0;
+            }
             while (position < inputPattern.Length)
             {
                 if (inputPattern[position - 1]
@@ -53,7 +56,7 @@ namespace NewsAggregator
             }
             for (int i = 0; i < inputPattern.Length; ++i)
             {
-                table[(int)inputPattern[i]] = i;
+                table[(int) inputPattern[i]] = i;
             }
         }
 
@@ -125,7 +128,7 @@ namespace NewsAggregator
                     return shift;
                 } else
                 {
-                    shift += Math.Max(1, position - table[(int) inputString[shift + position]]); 
+                    shift += Math.Max(1, position - table[((int) inputString[shift + position] % 256)]); 
                 }
             }
             return -1;
@@ -136,7 +139,7 @@ namespace NewsAggregator
         //returns int posisi.
         public int regexSearch(string inputString, string inputPattern)
         {
-            Regex regex = new Regex(@"inputPattern");
+            Regex regex = new Regex(@"(\w)(" + inputString + ")", RegexOptions.IgnoreCase);
             Match match = regex.Match(inputString);
             if (match.Success)
             {
@@ -212,6 +215,12 @@ namespace NewsAggregator
             // adding content
             tes += article.Content.Substring(indexStart, indexEnd - indexStart + 1) + "<hr></html>";
             return tes;
+        }
+
+        public string filterString(string inputString)
+        {
+            string filteredString = Regex.Replace(inputString, "<.*?>", String.Empty);
+            return filteredString;
         }
     }
 }
