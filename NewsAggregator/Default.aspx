@@ -1,42 +1,25 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="NewsAggregator._Default" Async="true" %>
-
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>
-                NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
-            </p>
-        </div>
-    </div>
-
-</asp:Content>
+﻿<%@ Page Title="Home Page" Language="C#" CodeBehind="Default.aspx.cs" Inherits="NewsAggregator._Default" Async="true" %>
+<%@ Import Namespace="NewsAggregator" %>
+<!DOCTYPE html/>
+<head>
+    <title> Home Page </title>
+</head>
+<html>
+    <body>
+    <form id="f1" action="Default.aspx" method="GET">
+        <input type="text" name="searchkey" placeholder="Type keyword here" >
+        <input type="submit" name="submit" value="Search"><br>
+        <input type="radio" name="algochoice" value="regex" checked> Regex<br>
+        <input type="radio" name="algochoice" value="kmp"> KMP<br>
+        <input type="radio" name="algochoice" value="boyer"> Boyer-Moore<br>
+    </form>
+    <%
+        //Parser a = new Parser("http://rss.detik.com/index.php/detikcom");
+        Response.Write(Test.testing());
+        string search_key = Request.QueryString["searchkey"];
+        string algo_choice = Request.QueryString["algochoice"];
+        //Response.Write(search_key + " " + algo_choice);
+        //Response.Write(a.testing());
+    %>
+        </body>
+</html>
