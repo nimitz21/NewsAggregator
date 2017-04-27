@@ -13,6 +13,7 @@ namespace NewsAggregator
         async protected void Page_Load(object sender, EventArgs e)
         {
             int x = await RSSParser.parseRSS("http://rss.detik.com/index.php/detikcom");
+            
         }
     }
 }

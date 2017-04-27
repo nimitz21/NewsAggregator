@@ -17,7 +17,10 @@ namespace NewsAggregator
             {
                 article = await reader.Read(new Uri(url));
             }
-            catch (ReadException exc) { }
+            catch (ReadException exception)
+            {
+                //do nothing
+            }
             return article;
         }
     }
