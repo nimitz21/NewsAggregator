@@ -232,6 +232,7 @@ namespace NewsAggregator
             String tes = "<html>";
             KeyValuePair<String, Article> pair = Global.listOfItem.ElementAt(listIndex);
             Article article = pair.Value;
+            tes += "<img id = 'newsImage' src=\"" + article.FrontImage + "\"><br>";
             tes += "<a href=\"" + pair.Key + "\">" + article.Title + "</a><br>";
             int indexEnd = pos;
             int indexStart = pos;
@@ -249,8 +250,8 @@ namespace NewsAggregator
                 indexStart++;
             }
             // adding content
-            tes += content.Substring(indexStart, indexEnd - indexStart + 1) + "<br>";
-            tes += "<img src=\"" + article.FrontImage + "\" height=100 width=auto>" + "<hr></html>";
+            tes += content.Substring(indexStart, indexEnd - indexStart + 1) + "<br><br><br>";
+            tes += "<hr></html>";
             return tes;
         }
 

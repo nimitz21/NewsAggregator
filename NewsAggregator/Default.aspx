@@ -5,17 +5,33 @@
 <head>
     <title> CODAnews </title>
     <link rel="stylesheet" href="Search Page Style.css">
-    <link rel="icon" href="asset/logo.png"
+    <link rel="icon" href="asset/logo.png">
 </head>
 <html>
     <body>
-    <form id="f1" action="Default.aspx" method="GET">
-        <input type="text" name="searchkey" placeholder="Type keyword here" >
-        <input type="submit" name="submit" value="Search"><br>
-        <input type="radio" name="algochoice" value="regex" checked> Regex<br>
-        <input type="radio" name="algochoice" value="kmp"> KMP<br>
-        <input type="radio" name="algochoice" value="boyer"> Boyer-Moore<br>
-    </form>
+    <div id = "head">
+        <div id = "logoPlace">
+            <img id = "logo" src="asset/logo and coda.png">
+        </div>
+        <form id = "searcher" method = "get" action = "Default.aspx">
+            <input type = "radio" name = "algochoice" value = "kmp" checked> Knuth-Morris-Pratt &nbsp &nbsp
+            <input type = "radio" name = "algochoice" value = "boyer"> Boyer-Moore &nbsp &nbsp
+            <input type = "radio" name = "algochoice" value = "regex"> Regex
+            <br>
+            <input id = "inputWords" type = "text" name = "searchkey" placeholder = "Type keywords here">
+            <button id="submitButton" type="submit" cursor = "pointer">
+                <img id = "imgSearch" src="asset/search button.png">
+            </button>
+        </form>
+        <div id = "credit">
+            <center>
+                <b>Powered by</b><br>
+                <img id = "gocode" src="asset/GOCode.png">
+            </center>
+        </div>
+        <div id = "separator"><hr></div>
+    </div>
+    <br><br><br><br><br>
     <%
         string search_key = Request.QueryString["searchkey"];
         string algo_choice = Request.QueryString["algochoice"];
@@ -25,5 +41,5 @@
             Response.Write(String_Matcher.getInstance().printListItem(pair.Key, pair.Value));
         }
     %>
-        </body>
+    </body>
 </html>
