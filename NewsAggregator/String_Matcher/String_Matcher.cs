@@ -118,8 +118,12 @@ namespace NewsAggregator
             int shift = 0;
             while (shift <= (inputString.Length - inputPattern.Length))
             {
-                int position = inputString.Length - 1;
-                while (position >= 0 && inputPattern[position] == inputString[position])
+                int position = inputPattern.Length - 1;
+                while (position > 0 && inputPattern[position] == inputString[shift + position])
+                {
+                    --position;
+                }
+                if (inputPattern[position] == inputString[shift + position])
                 {
                     --position;
                 }
@@ -143,7 +147,7 @@ namespace NewsAggregator
             Match match = regex.Match(inputString);
             if (match.Success)
             {
-                return match.Groups[1].Index;
+                return match.Groups[0].Index;
             } else
             {
                 return -1;
