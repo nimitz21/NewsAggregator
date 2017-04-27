@@ -118,8 +118,12 @@ namespace NewsAggregator
             int shift = 0;
             while (shift <= (inputString.Length - inputPattern.Length))
             {
-                int position = inputString.Length - 1;
-                while (position >= 0 && inputPattern[position] == inputString[position])
+                int position = inputPattern.Length - 1;
+                while (position > 0 && inputPattern[position] == inputString[position])
+                {
+                    --position;
+                }
+                if (inputPattern[position] == inputString[position])
                 {
                     --position;
                 }
