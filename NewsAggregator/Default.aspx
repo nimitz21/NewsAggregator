@@ -21,7 +21,6 @@
         List<KeyValuePair<int, int>> listIndex = String_Matcher.getInstance().search(search_key, algo_choice);
         foreach (KeyValuePair<int, int> pair in listIndex)
         {
-            Response.Write(pair.Key + " " + pair.Value);
             Response.Write(String_Matcher.getInstance().printListItem(pair.Key, pair.Value));
         }
         //Response.Write(search_key + " " + algo_choice);

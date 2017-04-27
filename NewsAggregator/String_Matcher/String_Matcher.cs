@@ -153,8 +153,9 @@ namespace NewsAggregator
             int i = 0;
             if (algoChoice == "kmp")
             {
-                foreach (Article item in Global.listOfItem)
+                foreach (KeyValuePair<String, Article> pair in Global.listOfItem)
                 {
+                    Article item = pair.Value;
                     int index = kmpSearch(item.Content, inputString);
                     
                     System.Diagnostics.Debug.WriteLine(index);
@@ -166,8 +167,9 @@ namespace NewsAggregator
                 }
             } else if (algoChoice == "boyer")
             {
-                foreach (Article item in Global.listOfItem)
+                foreach (KeyValuePair<String, Article> pair in Global.listOfItem)
                 {
+                    Article item = pair.Value;
                     int index = bmSearch(item.Content, inputString);
                     if (index != -1)
                     {
@@ -177,8 +179,9 @@ namespace NewsAggregator
                 }
             } else
             {
-                foreach (Article item in Global.listOfItem)
+                foreach (KeyValuePair<String, Article> pair in Global.listOfItem)
                 {
+                    Article item = pair.Value;
                     int index = regexSearch(item.Content, inputString);
                     if (index != -1)
                     {
@@ -193,8 +196,9 @@ namespace NewsAggregator
         public String printListItem(int listIndex, int pos)
         {
             String tes = "<html>";
-            Article article = Global.listOfItem.ElementAt(listIndex);
-            tes += article.Title + "<br>";
+            KeyValuePair<String, Article> pair = Global.listOfItem.ElementAt(listIndex);
+            Article article = pair.Value;
+            tes += "<a href=\"" + pair.Key + "\">" + article.Title + "</a><br>";
             int indexEnd = pos;
             int indexStart = pos;
             while (article.Content[indexEnd] != '.')
@@ -207,7 +211,7 @@ namespace NewsAggregator
             }
             if (indexStart != 0)
             {
-                indexStart -= 2;
+                indexStart += 2;
             }
             // adding content
             tes += article.Content.Substring(indexStart, indexEnd - indexStart + 1) + "<hr></html>";

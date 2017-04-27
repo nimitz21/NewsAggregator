@@ -18,8 +18,9 @@ namespace NewsAggregator
             String test = "<html>";
             try
             {
-                foreach (Article item in Global.listOfItem)
+                foreach (KeyValuePair<String, Article> pair in Global.listOfItem)
                 {
+                    Article item = pair.Value;
                     test += "JINGJING" + "<br>";
                     test += item.Title+ "<br>";
                     foreach (ArticleImage image in item.Images)
