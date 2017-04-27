@@ -1,4 +1,5 @@
-﻿<%@ Page Title="Home Page" Language="C#" CodeBehind="Default.aspx.cs" Inherits="NewsAggregator._Default" Async="true" %>
+﻿<%@ Page Title="Home Page" Language="C#" CodeBehind="Default.aspx.cs" Inherits="NewsAggregator.About" async="true"%>
+
 <%@ Import Namespace="NewsAggregator" %>
 <!DOCTYPE html/>
 <head>
@@ -14,8 +15,6 @@
         <input type="radio" name="algochoice" value="boyer"> Boyer-Moore<br>
     </form>
     <%
-        //Parser a = new Parser("http://rss.detik.com/index.php/detikcom");
-        //Response.Write(Test.testing());
         string search_key = Request.QueryString["searchkey"];
         string algo_choice = Request.QueryString["algochoice"];
         List<KeyValuePair<int, int>> listIndex = String_Matcher.getInstance().search(search_key, algo_choice);
@@ -23,8 +22,6 @@
         {
             Response.Write(String_Matcher.getInstance().printListItem(pair.Key, pair.Value));
         }
-        //Response.Write(search_key + " " + algo_choice);
-        //Response.Write(a.testing());
     %>
         </body>
 </html>

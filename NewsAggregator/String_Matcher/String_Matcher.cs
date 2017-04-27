@@ -115,8 +115,8 @@ namespace NewsAggregator
             int shift = 0;
             while (shift <= (inputString.Length - inputPattern.Length))
             {
-                int position = inputPattern.Length - 1;
-                while (position >= 0 && inputPattern[position] == inputString[shift + position])
+                int position = inputString.Length - 1;
+                while (position >= 0 && inputPattern[position] == inputString[position])
                 {
                     --position;
                 }
@@ -125,7 +125,7 @@ namespace NewsAggregator
                     return shift;
                 } else
                 {
-                    shift += Math.Max(1, position - table[(int) inputString[shift + position]]); 
+                    shift += Math.Max(1, position - table[inputString[shift + position]]); 
                 }
             }
             return -1;
@@ -205,16 +205,22 @@ namespace NewsAggregator
             {
                 indexEnd++;
             }
-            while (article.Content[indexStart] != '.' && indexStart > 0)
+            while (article.Content[indexStart] != '.' && article.Content[indexStart] != '>' && indexStart > 0)
             {
                 indexStart--;
             }
-            if (indexStart != 0)
+            if (article.Content[indexStart] == '>')
+            {
+                indexStart++;
+                tes += "..";
+            }
+            else if (article.Content[indexStart] == '.')
             {
                 indexStart += 2;
             }
             // adding content
-            tes += article.Content.Substring(indexStart, indexEnd - indexStart + 1) + "<hr></html>";
+            tes += article.Content.Substring(indexStart, indexEnd - indexStart + 1) + "<br>";
+            tes += "<img src=\"" + article.FrontImage + "\" height=100 width=auto>" + "<hr></html>";
             return tes;
         }
     }
