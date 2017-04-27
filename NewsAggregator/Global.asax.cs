@@ -22,8 +22,22 @@ namespace NewsAggregator
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             try
             {
-                //List<KeyValuePair<String, Article>> dummy = await RSSParser.parseRSS("http://rss.detik.com/index.php/detikcom");
-                List<KeyValuePair<String, Article>> dummy = await RSSParser.parseRSS("http://www.antaranews.com/rss/terkini");
+                List<KeyValuePair<String, Article>> dummy = await RSSParser.parseRSS("http://rss.detik.com/index.php/detikcom");
+                foreach (KeyValuePair<String, Article> pair in dummy)
+                {
+                    Global.listOfItem.Add(pair);
+                }
+                dummy = await RSSParser.parseRSS("http://tempo.co/rss/terkini");
+                foreach (KeyValuePair<String, Article> pair in dummy)
+                {
+                    Global.listOfItem.Add(pair);
+                }
+                dummy = await RSSParser.parseRSS("http://rss.vivanews.com/get/all ");
+                foreach (KeyValuePair<String, Article> pair in dummy)
+                {
+                    Global.listOfItem.Add(pair);
+                }
+                dummy = await RSSParser.parseRSS("http://www.antaranews.com/rss/terkini");
                 foreach (KeyValuePair<String, Article> pair in dummy)
                 {
                     Global.listOfItem.Add(pair);
