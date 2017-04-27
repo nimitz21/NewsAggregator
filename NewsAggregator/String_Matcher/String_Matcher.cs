@@ -115,8 +115,8 @@ namespace NewsAggregator
             int shift = 0;
             while (shift <= (inputString.Length - inputPattern.Length))
             {
-                int position = inputString.Length - 1;
-                while (position >= 0 && inputPattern[position] == inputString[position])
+                int position = inputPattern.Length - 1;
+                while (position >= 0 && inputPattern[position] == inputString[shift + position])
                 {
                     --position;
                 }
@@ -125,7 +125,7 @@ namespace NewsAggregator
                     return shift;
                 } else
                 {
-                    shift += Math.Max(1, position - table[inputString[shift + position]]); 
+                    shift += Math.Max(1, position - table[(int) inputString[shift + position]]); 
                 }
             }
             return -1;
