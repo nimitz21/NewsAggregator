@@ -1,0 +1,94 @@
+body {
+    background: black;
+}
+
+#button {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    padding: 3px 3px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    border-radius: 10px;
+    z-index: -1;
+}
+
+#button:hover {
+    z-index: 2;
+}
+
+#gallery {
+    display: block;
+    margin: auto;
+    position: relative;
+    width: 80%;
+    top: 100px;
+}
+
+#judul {
+    clear: right;
+    color: white;
+}
+
+div.container {
+    position: relative;
+    width: 100%;
+    z-index: 0;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.overlay {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.photo {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.text {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 32px;
+}
+
+.container:hover {
+    box-shadow: 0 0 10px 10px rgba(204, 255, 204, 0.5);
+}
+
+div.container:hover .overlay {
+    opacity: 1;
+}
+
+.container:hover .photo  {
+    opacity: 0.3;
+}
+
+div.container img {
+    width: 100%;
+    height: auto;
+}
+
+.images {
+    padding: 0 6px;
+    float: left;
+    width: 30%;
+}
+
+@media only screen and (max-width: 600px){
+    .images {
+        width: 100%;
+    }
+}

@@ -26,7 +26,9 @@
         <div id = "credit">
             <center>
                 <b>Powered by</b><br>
-                <img id = "gocode" src="asset/GOCode.png">
+                <a href="GOCode.html">
+                    <img id = "gocode" src="asset/GOCode.png" cursor="pointer" alt="GO-Code">
+                </a>
             </center>
         </div>
         <div id = "separator"><hr></div>
